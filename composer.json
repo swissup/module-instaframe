@@ -1,0 +1,31 @@
+{
+    "name": "swissup/instaframe",
+    "description": "Instagram feed widget",
+    "keywords": [
+        "instagram",
+        "social",
+        "feed"
+    ],
+    "type": "magento2-module",
+    "version": "0.0.1",
+    "license": "OSL-3.0",
+    "require": {
+        "swissup/core": "*"
+    },
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Swissup\\Instaframe\\": ""
+        }
+    },
+    "extra": {
+        "swissup": {
+            "links": {
+                "marketplace"   : "https://marketplace.magento.com/swissup-instaframe.html",
+                "store"         : "https://swissuplabs.com/",
+                "docs"          : "http://docs.swissuplabs.com/m2/extensions/instaframe/",
+                "changelog"     : "http://docs.swissuplabs.com/m2/argento/changelog/"
+            }
+        }
+    }
+}
