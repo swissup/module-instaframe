@@ -31,16 +31,16 @@ class Feed extends Template
     }
 
     public function getDisplaySize() {
-        return $this->_scopeConfig->getValue("instaframe/layout");
+        return $this->_scopeConfig->getValue("instaframe/general/layout");
     }
     public function getToken() {
-        return $this->_scopeConfig->getValue("instaframe/token");
+        return $this->_scopeConfig->getValue("instaframe/general/token");
     }
     public function getUserId() {
-        return $this->_scopeConfig->getValue("instaframe/userid");
+        return $this->_scopeConfig->getValue("instaframe/general/userid");
     }
     public function getImagesQuantity() {
-        return $this->_scopeConfig->getValue("instaframe/images_quantity");
+        return $this->_scopeConfig->getValue("instaframe/general/images_quantity");
     }
 
     // $config = $this->_scopeConfig->getValue("instaframe/general");
