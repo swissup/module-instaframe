@@ -1,9 +1,58 @@
-<?php
-    // print_r (get_class_methods($block));
-    // \Zend_Debug::dump($block->getDisplaySize());
+<!--
+    ["likes"] => int(25)
+    ["comments"] => int(0)
+    ["link"] => string(40) "https://www.instagram.com/p/BXLe2h8AV9p/"
+    ["caption"] => NULL
+    ["username"] => string(7) "rommmka"
+    ["type"] => string(5) "video"
+    ["images"] => array(3) {
+      ["width"] => int(640)
+      ["height"] => int(360)
+      ["url"] => string(97) "https://scontent.cdninstagram.com/t50.2886-16/20548856_1898828160334180_5855974413861650432_n.mp4"
+-->
 
-    // $Instagram = new Instagram('ACCESSTOKENIFCHANGEDORNULLOREMPTY');
-    // foreach ($Instagram::$result->data as $photo) {
-    //     $img = $photo->images->{$Instagram::$display_size};
-    // }
+<?php
+    $data = $block->getFeedData();
+    foreach ($data as $option):
 ?>
+
+    <div class="instaframe">
+        <div class="instaframe-likes">
+            <?php echo $option['likes'] ?>
+        </div>
+        <div class="instaframe-comments">
+            <?php echo $option['comments'] ?>
+        </div>
+        <div class="instaframe-image">
+            <a  href="<?php echo $option['link'] ?>"
+                class="instaframe-url">
+
+                <?php if ($option['type'] == 'video'): ?>
+
+                    <video  width="<?php echo $option['images']['width'] ?>"
+                            height="<?php echo $option['images']['height'] ?>"
+                            controls>
+                        <source     src="<?php echo $option['images']['url'] ?>"
+                                    type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+
+                <?php else: ?>
+                    <img    src="<?php echo $option['images']['url'] ?>"
+                            alt="<?php echo $option['caption'] ?>"
+                            height = "<?php echo $option['images']['height'] ?>"
+                            width = "<?php echo $option['images']['width'] ?>"
+                            class="instaframe-image"  >
+                <?php endif; ?>
+
+            </a>
+        </div>
+        <div class="instaframe-caption">
+            <?php echo $option['caption'] ?>
+        </div>
+    </div>
+
+<?php
+    endforeach;
+?>
+

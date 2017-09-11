@@ -5,20 +5,11 @@ use Magento\Framework\View\Element\Template;
 
 class Feed extends Template
 {
-    // public function __construct($Token = null) {
-    //     $this->_scopeConfig   = $context->getScopeConfig();
-
-    //     if(!empty($Token)){
-    //         self::$access_token = $Token;
-    //         // Remove from memory -- not sure if really needed.
-    //         $Token = null;
-    //         unset($Token);
-    //     }
-
-    //     self::$result = json_decode(self::fetch("https://api.instagram.com/v1/users/self/media/recent?count=" . self::$count . "&access_token=" . self::$access_token), true);
-
-    //     parent::__construct($result);
-    // }
+    public static $result;
+    public static $display_size;
+    public static $access_token;
+    public static $userid;
+    public static $count;
 
     public function __construct(
         Template\Context $context,
@@ -27,8 +18,10 @@ class Feed extends Template
     ) {
         $this->_scopeConfig   = $context->getScopeConfig();
         $this->_coreRegistry = $registry;
+
         parent::__construct($context, $data);
     }
+
 
     public function getDisplaySize() {
         return $this->_scopeConfig->getValue("instaframe/general/layout");
@@ -43,21 +36,51 @@ class Feed extends Template
         return $this->_scopeConfig->getValue("instaframe/general/images_quantity");
     }
 
-    // $config = $this->_scopeConfig->getValue("instaframe/general");
+    public static function fetch($url){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
 
-    // public static $result;
-    // public static $display_size = $config["layout"];
-    // public static $access_token = $config["token"]; // default access token, optional
-    // public static $count = $config["images_quantity"];
+    public function getFeedData() {
+        $count = $this->getImagesQuantity();
+        $access_token = $this->getToken();
+        $urlJson = json_decode($this->fetch("https://api.instagram.com/v1/users/self/media/recent?count=" . $count . "&access_token=" . $access_token), true);
 
-    // public static function fetch($url){
-    //     $ch = curl_init();
-    //     curl_setopt($ch, CURLOPT_URL, $url);
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    //     curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-    //     $result = curl_exec($ch);
-    //     curl_close($ch);
-    //     return $result;
-    // }
+        $images = [];
 
+        foreach ($urlJson['data'] as $photo) {
+            $image = array(
+                'likes'                 => $photo['likes']['count'],
+                'comments'              => $photo['comments']['count'],
+                'link'                  => $photo['link'],
+                'caption'               => $photo['caption']['text'],
+                'username'              => $photo['user']['username'],
+                'type'                  => $photo['type'],
+
+                'images'                => array(
+                    'width'                 => $photo['images'][$this->getDisplaySize()]['width'],
+                    'height'                => $photo['images'][$this->getDisplaySize()]['height']
+                )
+            );
+
+            if ($image['type'] == "image") {
+                $image['images']['url'] = $photo['images'][$this->getDisplaySize()]['url'];
+            } elseif ($image['type'] == "carousel") {
+                $image['images']['url'] = $photo['carousel_media']["0"]["images"][$this->getDisplaySize()]['url'];
+            } elseif ($image['type'] == "video") {
+                $resolution = $this->getDisplaySize();
+                if ($resolution == 'thumbnail') {
+                    $resolution = 'low_bandwidth';
+                }
+                $image['images']['url'] = $photo['videos'][$resolution]['url'];
+            }
+            $images[] = $image;
+        }
+        return $images;
+    }
 }
