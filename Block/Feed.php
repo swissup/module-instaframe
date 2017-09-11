@@ -52,7 +52,9 @@ class Feed extends Template
         $urlJson = json_decode($this->fetch("https://api.instagram.com/v1/users/self/media/recent?count=" . $count . "&access_token=" . $access_token), true);
 
         $images = [];
-
+        if (!isset($urlJson['data'])){
+            return $images;
+        }
         foreach ($urlJson['data'] as $photo) {
             $image = array(
                 'likes'                 => $photo['likes']['count'],

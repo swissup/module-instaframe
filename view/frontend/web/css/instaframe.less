@@ -1,5 +1,68 @@
 .instaframe {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    position: relative;
 }
+
+
+.instaframe-item {
+    position: relative;
+    float: left;
+    // display: inline-block;
+    // margin-right: -4px;
+    // vertical-align: top;
+    width: 20%;
+    animation: instaframe-anim .8s ease-in-out;
+    img {
+        vertical-align: top;
+    }
+}
+
+ @-webkit-keyframes instaframe-anim {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes instaframe-anim {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+    .instaframe-likes {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .instaframe-comments {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .instaframe-caption {
+        position: absolute;
+        bottom:0;
+        left: 0;
+    }
