@@ -10,13 +10,12 @@
       ["height"] => int(360)
       ["url"] => string(97) "https://scontent.cdninstagram.com/t50.2886-16/20548856_1898828160334180_5855974413861650432_n.mp4"
 -->
-
+<div class="instaframe" data-mage-init='{"instaframe":{}}'>
 <?php
     $data = $block->getFeedData();
     foreach ($data as $option):
 ?>
-
-    <div class="instaframe">
+    <div    class="instaframe-item">
         <div class="instaframe-likes">
             <?php echo $option['likes'] ?>
         </div>
@@ -26,33 +25,28 @@
         <div class="instaframe-image">
             <a  href="<?php echo $option['link'] ?>"
                 class="instaframe-url">
-
                 <?php if ($option['type'] == 'video'): ?>
-
-                    <video  width="<?php echo $option['images']['width'] ?>"
-                            height="<?php echo $option['images']['height'] ?>"
+                    <video  width="<?php echo $option['images']['width'] ?>px"
+                            height="<?php echo $option['images']['height'] ?>px"
                             controls>
                         <source     src="<?php echo $option['images']['url'] ?>"
                                     type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-
                 <?php else: ?>
                     <img    src="<?php echo $option['images']['url'] ?>"
                             alt="<?php echo $option['caption'] ?>"
-                            height = "<?php echo $option['images']['height'] ?>"
-                            width = "<?php echo $option['images']['width'] ?>"
+                            height = "<?php echo $option['images']['height'] ?>px"
+                            width = "<?php echo $option['images']['width'] ?>px"
                             class="instaframe-image"  >
                 <?php endif; ?>
-
             </a>
         </div>
         <div class="instaframe-caption">
             <?php echo $option['caption'] ?>
         </div>
     </div>
-
 <?php
     endforeach;
 ?>
-
+</div>
