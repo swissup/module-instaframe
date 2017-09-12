@@ -1,13 +1,73 @@
 .instaframe {
     position: relative;
+    .instaframe-front,
+    .instaframe-back {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -o-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    .instaframe-back {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+
+        .instaframe-caption {
+            color: #3a3a3a;
+            position: absolute;
+            bottom: 35px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            text-shadow: 1px 1px 0px #acd7e5;
+            font-family: Courier;
+            font-size: 1em;
+        }
+    }
     .instaframe-item {
         position: relative;
         float: left;
-        // display: inline-block;
-        // margin-right: -4px;
-        // vertical-align: top;
         width: 20%;
+
         animation: instaframe-anim .8s ease-in-out;
+        -webkit-perspective: 1000;
+        -moz-perspective: 1000;
+        -o-perspective: 1000;
+        perspective: 1000;
+
+        -webkit-transition: 0.6s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transition: 0.6s;
+        -moz-transform-style: preserve-3d;
+        -o-transition: 0.6s;
+        -o-transform-style: preserve-3d;
+        transition: 0.6s;
+        transform-style: preserve-3d;
+
+        &.clicked {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            -o-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+
+            .instaframe-likes,
+            .instaframe-comments {
+                opacity: 0 !important;
+
+                -webkit-transform: scale(0) !important;
+                -moz-transform: scale(0) !important;
+                -ms-transform: scale(0) !important;
+                transform: scale(0) !important;
+                -webkit-transition: all 0.6s;
+                -moz-transition: all 0.6s;
+                transition: all 0.6s;
+            }
+            img, video {
+                opacity: 0;
+            }
+        }
+
         &:hover {
             .instaframe-likes,
             .instaframe-comments {
@@ -40,9 +100,15 @@
             -moz-transition: all 0.3s;
             transition: all 0.3s;
 
+            z-index: 10;
+
             a {
                 color: #FFF;
                 text-decoration: none;
+                display: block;
+                width: 50px;
+                height: 48px;
+
             }
 
             &:hover {
@@ -56,11 +122,6 @@
         .instaframe-comments {
             right: 25px;
             background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDYwIDYwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA2MCA2MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIGQ9Ik01NCwySDZDMi43NDgsMiwwLDQuNzQ4LDAsOHYzM2MwLDMuMjUyLDIuNzQ4LDYsNiw2aDI4LjU1OGw5LjcwMywxMC42NzNDNDQuNDU0LDU3Ljg4NSw0NC43MjQsNTgsNDUsNTggIGMwLjEyMSwwLDAuMjQzLTAuMDIyLDAuMzYxLTAuMDY3QzQ1Ljc0Niw1Ny43ODQsNDYsNTcuNDEzLDQ2LDU3VjQ3aDhjMy4yNTIsMCw2LTIuNzQ4LDYtNlY4QzYwLDQuNzQ4LDU3LjI1MiwyLDU0LDJ6IiBmaWxsPSIjNTRhNWRlIi8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=');
-        }
-        .instaframe-caption {
-            position: absolute;
-            bottom:0;
-            left: 0;
         }
         img,
         video {
@@ -104,3 +165,32 @@
   }
 }
 
+/* Display size styles */
+
+@media (max-width: 1000px) {
+    .instaframe .instaframe-item {
+        width: 25%;
+    }
+}
+@media (max-width: 767px) {
+    .instaframe .instaframe-item {
+        width: 33%;
+    }
+}
+@media (max-width: 480px) {
+    .instaframe .instaframe-item {
+        width: 50%;
+        .instaframe-likes,
+        .instaframe-comments {
+            top: 20px;
+            width: 25px;
+            height: 24px;
+            background-size: 25px 24px;
+            padding-top: 0;
+            a {
+                width: 25px;
+                height: 24px;
+            }
+        }
+    }
+}
