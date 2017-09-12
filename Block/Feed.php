@@ -55,6 +55,7 @@ class Feed extends Template
         if (!isset($urlJson['data'])){
             return $images;
         }
+        // \Zend_Debug::dump($urlJson['data']);die;
         foreach ($urlJson['data'] as $photo) {
             $image = array(
                 'likes'                 => $photo['likes']['count'],
@@ -63,6 +64,7 @@ class Feed extends Template
                 'caption'               => $photo['caption']['text'],
                 'username'              => $photo['user']['username'],
                 'type'                  => $photo['type'],
+                'video_first'           => false,
 
                 'images'                => array(
                     'width'                 => $photo['images'][$this->getDisplaySize()]['width'],
@@ -73,7 +75,12 @@ class Feed extends Template
             if ($image['type'] == "image") {
                 $image['images']['url'] = $photo['images'][$this->getDisplaySize()]['url'];
             } elseif ($image['type'] == "carousel") {
-                $image['images']['url'] = $photo['carousel_media']["0"]["images"][$this->getDisplaySize()]['url'];
+                if (isset($photo['carousel_media']["0"]["images"][$this->getDisplaySize()]['url'])) {
+                    $image['images']['url'] = $photo['carousel_media']["0"]["images"][$this->getDisplaySize()]['url'];
+                } elseif (isset($photo['carousel_media']["0"]["videos"][$this->getDisplaySize()]['url'])) {
+                    $image['video_first'] = true;
+                    $image['images']['url'] = $photo['carousel_media']["0"]["videos"][$this->getDisplaySize()]['url'];
+                }
             } elseif ($image['type'] == "video") {
                 $resolution = $this->getDisplaySize();
                 if ($resolution == 'thumbnail') {
