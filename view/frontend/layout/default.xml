@@ -3,8 +3,8 @@
         <css src="Swissup_Instaframe::css/instaframe.css"/>
     </head>
     <body>
-        <referenceContainer name="content">
+        <!-- <referenceContainer name="content">
             <block class="Swissup\Instaframe\Block\Feed" name="instaframe.feed" template="feed.phtml" />
-        </referenceContainer>
+        </referenceContainer> -->
     </body>
 </page>

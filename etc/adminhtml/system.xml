@@ -24,9 +24,9 @@
                     <label>Images display size</label>
                     <source_model>Swissup\Instaframe\Model\Config\Source\Layout</source_model>
                 </field>
-                <field id="images_quantity" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="2">
+<!--                 <field id="images_quantity" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="2">
                     <label>Quantity of images to show</label>
-                </field>
+                </field> -->
             </group>
         </section>
     </system>

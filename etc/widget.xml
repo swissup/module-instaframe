@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="swissup_instaframe_grid" class="Swissup\Instaframe\Block\Feed" is_email_compatible="false"
+            ttl="86400">
+        <label translate="true">Instaframe grid</label>
+        <description>Adding grid with instaframe feed</description>
+        <parameters>
+            <parameter name="images_quantity" xsi:type="text" required="true" visible="true">
+                <label translate="true">Images quantity</label>
+                <value>15</value>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

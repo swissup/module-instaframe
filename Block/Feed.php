@@ -4,6 +4,7 @@ namespace Swissup\Instaframe\Block;
 use Magento\Framework\View\Element\Template;
 
 class Feed extends Template
+    implements \Magento\Widget\Block\BlockInterface
 {
     public static $result;
     public static $display_size;
@@ -19,14 +20,6 @@ class Feed extends Template
      * @param      array                        $data      The data
      */
 
-    /**
-     * Counstructor
-     *
-     * @param      Template\Context             $context   The context
-     * @param      \Magento\Framework\Registry  $registry  The registry
-     * @param      array                        $data      The data
-     */
-
     public function __construct(
         Template\Context $context,
         \Magento\Framework\Registry $registry,
@@ -36,6 +29,17 @@ class Feed extends Template
         $this->_coreRegistry = $registry;
 
         parent::__construct($context, $data);
+
+    }
+
+    /**
+     * Gets the template.
+     *
+     * @return     string  The template.
+     */
+
+    public function getTemplate() {
+        return 'feed.phtml';
     }
 
     /**
@@ -70,7 +74,11 @@ class Feed extends Template
      * @return     int  The images quantity.
      */
     public function getImagesQuantity() {
-        return $this->_scopeConfig->getValue("instaframe/general/images_quantity");
+        $qty = $this->getData('images_quantity');
+        if (!is_numeric($this->getData('images_quantity'))){
+            $qty = 10;
+        }
+        return (int)$qty;
     }
 
     /**
