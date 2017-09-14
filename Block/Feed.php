@@ -55,8 +55,10 @@ class Feed extends Template
         if (!isset($urlJson['data'])){
             return $images;
         }
-        // \Zend_Debug::dump($urlJson['data']);die;
+         // \Zend_Debug::dump($urlJson['data']);die;
         foreach ($urlJson['data'] as $photo) {
+            $resolution = $this->getDisplaySize();
+
             $image = array(
                 'likes'                 => $photo['likes']['count'],
                 'comments'              => $photo['comments']['count'],
@@ -67,25 +69,22 @@ class Feed extends Template
                 'video_first'           => false,
 
                 'images'                => array(
-                    'width'                 => $photo['images'][$this->getDisplaySize()]['width'],
-                    'height'                => $photo['images'][$this->getDisplaySize()]['height']
+                    'width'                 => $photo['images'][$resolution]['width'],
+                    'height'                => $photo['images'][$resolution]['height']
                 )
             );
 
+
             if ($image['type'] == "image") {
-                $image['images']['url'] = $photo['images'][$this->getDisplaySize()]['url'];
+                $image['images']['url'] = $photo['images'][$resolution]['url'];
             } elseif ($image['type'] == "carousel") {
-                if (isset($photo['carousel_media']["0"]["images"][$this->getDisplaySize()]['url'])) {
-                    $image['images']['url'] = $photo['carousel_media']["0"]["images"][$this->getDisplaySize()]['url'];
-                } elseif (isset($photo['carousel_media']["0"]["videos"][$this->getDisplaySize()]['url'])) {
+                if (isset($photo['carousel_media']["0"]["images"][$resolution]['url'])) {
+                    $image['images']['url'] = $photo['carousel_media']["0"]["images"][$resolution]['url'];
+                } elseif (isset($photo['carousel_media']["0"]["videos"][$resolution]['url'])) {
                     $image['video_first'] = true;
-                    $image['images']['url'] = $photo['carousel_media']["0"]["videos"][$this->getDisplaySize()]['url'];
+                    $image['images']['url'] = $photo['carousel_media']["0"]["videos"][$resolution]['url'];
                 }
             } elseif ($image['type'] == "video") {
-                $resolution = $this->getDisplaySize();
-                if ($resolution == 'thumbnail') {
-                    $resolution = 'low_bandwidth';
-                }
                 $image['images']['url'] = $photo['videos'][$resolution]['url'];
             }
             $images[] = $image;
