@@ -1,22 +1,26 @@
 define([
     'jquery',
-    'uiComponent',
+    'underscore',
+    'jquery/ui',
     'Swissup_Instaframe/js/waterfall'
-], function ($, Component) {
+], function ($, _) {
     'use strict';
 
-    return Component.extend({
-        options: {
-            //
-        },
-
-        initialize: function (options, el) {
+    $.widget('swissup.instaframe', {
+        _create: function () {
             this._super();
+
+            var el = this.element.get(0);
+
             require(['waterfall'], function(waterfall) {
                 waterfall(el);
-                window.addEventListener('resize', function () {
+
+                var lazyWaterfall = _.debounce(function () {
                     waterfall(el);
-                });
+                }, 100);
+
+                window.addEventListener('resize', lazyWaterfall);
+                window.addEventListener('orientationchange', lazyWaterfall);
             });
 
             /* FlipOnClick */
@@ -35,4 +39,6 @@ define([
             });
         }
     });
+
+    return $.swissup.instaframe;
 });
