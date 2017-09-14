@@ -11,6 +11,22 @@ class Feed extends Template
     public static $userid;
     public static $count;
 
+    /**
+     * Class constructor
+     *
+     * @param      Template\Context             $context   The context
+     * @param      \Magento\Framework\Registry  $registry  The registry
+     * @param      array                        $data      The data
+     */
+
+    /**
+     * Counstructor
+     *
+     * @param      Template\Context             $context   The context
+     * @param      \Magento\Framework\Registry  $registry  The registry
+     * @param      array                        $data      The data
+     */
+
     public function __construct(
         Template\Context $context,
         \Magento\Framework\Registry $registry,
@@ -22,20 +38,49 @@ class Feed extends Template
         parent::__construct($context, $data);
     }
 
+    /**
+     * Getting items resolution from config [low_resolution, standard_resolution]
+     */
 
     public function getDisplaySize() {
         return $this->_scopeConfig->getValue("instaframe/general/layout");
     }
+
+    /**
+     * Getting user Token from config
+     *
+     * @return     string  The token.
+     */
     public function getToken() {
         return $this->_scopeConfig->getValue("instaframe/general/token");
     }
+
+    /**
+     * Getting UserID from config
+     *
+     * @return    string  The user identifier.
+     */
     public function getUserId() {
         return $this->_scopeConfig->getValue("instaframe/general/userid");
     }
+
+    /**
+     * Getting Instaframe items quantity from config
+     *
+     * @return     int  The images quantity.
+     */
     public function getImagesQuantity() {
         return $this->_scopeConfig->getValue("instaframe/general/images_quantity");
     }
 
+    /**
+     * Fetching the generated instagram url
+     * and generating data array
+     *
+     * @param      string  $url    The url
+     *
+     * @return     array  ( description_of_the_return_value )
+     */
     public static function fetch($url){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -46,9 +91,20 @@ class Feed extends Template
         return $result;
     }
 
+    /**
+     * Gets the feed data.
+     *
+     * @return     array  The feed data.
+     */
     public function getFeedData() {
+
+        /* Applying config items count */
         $count = $this->getImagesQuantity();
+
+        /* Applying config Instagram token */
         $access_token = $this->getToken();
+
+        /* Decoding data from generated URL */
         $urlJson = json_decode($this->fetch("https://api.instagram.com/v1/users/self/media/recent?count=" . $count . "&access_token=" . $access_token), true);
 
         $images = [];
@@ -57,8 +113,15 @@ class Feed extends Template
         }
          // \Zend_Debug::dump($urlJson['data']);die;
         foreach ($urlJson['data'] as $photo) {
+
+            // Applying config items resolution
             $resolution = $this->getDisplaySize();
 
+            /**
+             * Creating Instaframe items array
+             *
+             * @var        array
+             */
             $image = array(
                 'likes'                 => $photo['likes']['count'],
                 'comments'              => $photo['comments']['count'],
@@ -74,17 +137,19 @@ class Feed extends Template
                 )
             );
 
-
-            if ($image['type'] == "image") {
+            /**
+             * Fill Instaframe items array
+             */
+            if ($image['type'] == "image") { /* for Image */
                 $image['images']['url'] = $photo['images'][$resolution]['url'];
-            } elseif ($image['type'] == "carousel") {
-                if (isset($photo['carousel_media']["0"]["images"][$resolution]['url'])) {
+            } elseif ($image['type'] == "carousel") {                           /* for Story Carousel */
+                if (isset($photo['carousel_media']["0"]["images"][$resolution]['url'])) {    /* if first slide - image */
                     $image['images']['url'] = $photo['carousel_media']["0"]["images"][$resolution]['url'];
-                } elseif (isset($photo['carousel_media']["0"]["videos"][$resolution]['url'])) {
+                } elseif (isset($photo['carousel_media']["0"]["videos"][$resolution]['url'])) {    /* if first slide - video */
                     $image['video_first'] = true;
                     $image['images']['url'] = $photo['carousel_media']["0"]["videos"][$resolution]['url'];
                 }
-            } elseif ($image['type'] == "video") {
+            } elseif ($image['type'] == "video") { /* for Video */
                 $image['images']['url'] = $photo['videos'][$resolution]['url'];
             }
             $images[] = $image;
