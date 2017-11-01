@@ -82,6 +82,16 @@ class Feed extends Template
     }
 
     /**
+     * Determines ability to add follow us link.
+     *
+     * @return     boolean  True if able to add follow us link, False otherwise.
+     */
+
+    public function canAddFollowUsLink() {
+        return $this->_scopeConfig->getValue("instaframe/general/follow_us");
+    }
+
+    /**
      * Fetching the generated instagram url
      * and generating data array
      *
@@ -119,7 +129,7 @@ class Feed extends Template
         if (!isset($urlJson['data'])){
             return $images;
         }
-         // \Zend_Debug::dump($urlJson['data']);die;
+        // \Zend_Debug::dump($urlJson['data']);die;
         foreach ($urlJson['data'] as $photo) {
 
             // Applying config items resolution
@@ -136,6 +146,8 @@ class Feed extends Template
                 'link'                  => $photo['link'],
                 'caption'               => $photo['caption']['text'],
                 'username'              => $photo['user']['username'],
+                'userpic'               => $photo['user']['profile_picture'],
+                'full_name'             => $photo['user']['full_name'],
                 'type'                  => $photo['type'],
                 'video_first'           => false,
 

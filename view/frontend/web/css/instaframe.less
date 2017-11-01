@@ -1,3 +1,46 @@
+.instaframe-follow-us {
+    clear: both;
+    display: inline-block;
+    border: 3px solid #3a3a3a ;
+    padding: 8px;
+    margin-left: 25px;
+    margin-bottom: 15px;
+
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAB5UlEQVRIS72W3XHCMAzHJZsB6AaMEOLw3kzQMkHpBjAB1wlgg9IJ2k7QvBOnHqEbNANguyefHdIcIeHC4TdsRz99/CWMAABRFI1Ho9HaWrsAgDHtXWGViLg7HA4vSqkSCcI5/yLeFYyfMqG01ikmSbKx1i7pBiJuAeAzz/NsCDRJknsAeKjbRSHEL6WLIHmer4YAgi1vw6XOw0oCWR9NOjSSYCs4yxibGmO+nf1wKKXEtmjiOF4g4hMAUErqK7PWvhVFsaPNJohsVoGcA0VRNOGcv/cQChV8zjkn74NqSynlXSfIQ+ofOu8ZYz/kvTFm0oiy1FpPlVLuPKxOkBCCIE7y1trnkJ5men1aX/2+klJOz4La6lOHxHG8RMS1v5tprVcUQQN20lRVrBZQJqVM62ez2SwyxlCDUy2qdAkhaK8plurTs6AQDUVSFAU1s1tCCBLIo//5IaWcd0V1FoSIrreoERlj6X6/V35kUf0moTFJXTQNrLUU1eWpq4NCXbxAAoS2nYwHgULqGqlqejw8dQDgxHCipwLsOmKo95CHbWrKuqq8necXNGybFo5DtfXG8aAaQYhIKYtaBu3lqusB732lazL0NtR18aYg91fe5dHA8/Lf42SgsXbFIW5v99wiN27xgPwDEMZEgJTXYgoAAAAASUVORK5CYII=");
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    background-position: 8px 50%;
+
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        background-color: #f7f7f7;
+        padding-left: 45px;
+        transition: all .2s ease-in-out;
+
+    }
+    a {
+        color: #3a3a3a;
+        line-height: 32px;
+        height: 32px;
+        display: inline-block;
+        vertical-align: middle;
+        text-transform: lowercase;
+        &:hover {
+            text-decoration: none;
+        }
+        span {
+            font-weight: 800;
+            float: right;
+            margin-left: 6px;
+        }
+    }
+    img {
+        width: 32px;
+        height: 32px;
+        border-radius: 3px;
+    }
+}
 .instaframe {
     position: relative;
     .instaframe-front,

@@ -24,7 +24,7 @@
                 "marketplace"   : "https://marketplace.magento.com/swissup-instaframe.html",
                 "store"         : "https://swissuplabs.com/",
                 "docs"          : "http://docs.swissuplabs.com/m2/extensions/instaframe/",
-                "changelog"     : "http://docs.swissuplabs.com/m2/argento/changelog/"
+                "changelog"     : "http://docs.swissuplabs.com/m2/extensions/instaframe/changelog/"
             }
         }
     }

@@ -1,7 +1,20 @@
+<?php
+    /* Follow Us link check */
+
+    if ($block->canAddFollowUsLink()) {
+        echo "
+        <div class='instaframe-follow-us'>
+            <a href='https://www.instagram.com/". $block->getFeedData()[0]['username'] ."' title='". $block->getFeedData()[0]['full_name'] ."'' >
+                <img src='". $block->getFeedData()[0]['userpic'] ."' alt='". $block->getFeedData()[0]['full_name'] ."' />
+                <span>". __('Follow us on Instagram')."</span>
+            </a>
+        </div>";
+    }
+?>
 <div class="instaframe" data-mage-init='{"instaframe":{}}'>
 <?php
     $data = $block->getFeedData();
-    // \Zend_Debug::dump($data);die;
+    // \Zend_Debug::dump($block->getFeedData()[0]['username']);
     foreach ($data as $option):
 ?>
     <div class="instaframe-item">
