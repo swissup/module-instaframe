@@ -1,5 +1,5 @@
 {
-    "name": "swissup/instaframe",
+    "name": "swissup/module-instaframe",
     "description": "Instagram feed widget",
     "keywords": [
         "instagram",
@@ -7,10 +7,10 @@
         "feed"
     ],
     "type": "magento2-module",
-    "version": "0.9.0",
+    "version": "0.10.0",
     "license": "OSL-3.0",
     "require": {
-        "swissup/core": "*"
+        "swissup/module-core": "^1.7.0"
     },
     "autoload": {
         "files": [ "registration.php" ],
