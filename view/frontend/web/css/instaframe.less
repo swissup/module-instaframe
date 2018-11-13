@@ -50,6 +50,9 @@
         -o-backface-visibility: hidden;
         backface-visibility: hidden;
     }
+    .instaframe-front {
+        overflow: hidden;
+    }
     .instaframe-back {
         -webkit-transform: rotateY(180deg);
         -moz-transform: rotateY(180deg);
@@ -126,7 +129,17 @@
                 -ms-transform: scale(1);
                 transform: scale(1);
             }
+
+            .instaframe-image {
+                transform: scale(1.05);
+                filter: grayscale(1);
+            }
         }
+
+        .instaframe-image {
+            transition: 0.3s all ease;
+        }
+
         .instaframe-likes,
         .instaframe-comments {
             position: absolute;
