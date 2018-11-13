@@ -20,10 +20,10 @@
                 <field id="token" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Instagram Access Token</label>
                 </field>
-                <field id="layout" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <!-- <field id="layout" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Images display size</label>
                     <source_model>Swissup\Instaframe\Model\Config\Source\Layout</source_model>
-                </field>
+                </field> -->
                 <field id="follow_us" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Add "Follow Us" link</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
