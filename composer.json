@@ -7,10 +7,10 @@
         "feed"
     ],
     "type": "magento2-module",
-    "version": "0.10.0",
+    "version": "0.10.1",
     "license": "OSL-3.0",
     "require": {
-        "swissup/module-core": "^1.7.0"
+        "swissup/module-core": "^1.8.6"
     },
     "autoload": {
         "files": [ "registration.php" ],
