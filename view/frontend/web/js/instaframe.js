@@ -1,7 +1,7 @@
 define([
     'jquery',
     'underscore',
-    'jquery/ui',
+    'Magento_Ui/js/modal/modal', // 2.3.3: create 'jquery-ui-modules/widget' dependency
     'Swissup_Instaframe/js/waterfall'
 ], function ($, _) {
     'use strict';
