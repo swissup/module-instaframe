@@ -47,7 +47,8 @@ class Feed extends Template
      */
 
     public function getDisplaySize() {
-        return $this->_scopeConfig->getValue("instaframe/general/layout");
+        return "standard_resolution"; // $this->_scopeConfig->getValue("instaframe/general/layout");
+
     }
 
     /**
@@ -140,6 +141,7 @@ class Feed extends Template
              *
              * @var        array
              */
+
             $image = array(
                 'likes'                 => $photo['likes']['count'],
                 'comments'              => $photo['comments']['count'],
